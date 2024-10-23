@@ -15,11 +15,7 @@ const initialState: TIngredientsState = {
 const slice = createSlice({
   name: 'ingredients',
   initialState,
-  reducers: {
-    setIngredients: (state, action) => {
-      state.ingredients = action.payload;
-    }
-  },
+  reducers: {},
   selectors: {
     getIngredients: (state) => state.ingredients
   },
@@ -40,9 +36,12 @@ const slice = createSlice({
 
 export const fetchIngredients = createAsyncThunk(
   'ingredients/getAll',
-  async () => getIngredientsApi()
+  async () => {
+    const ingredients = await getIngredientsApi();
+    return ingredients;
+  }
 );
 
-export const { setIngredients } = slice.actions;
+export const {} = slice.actions;
 export const { getIngredients } = slice.selectors;
 export default slice.reducer;
