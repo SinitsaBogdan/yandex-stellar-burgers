@@ -19,14 +19,12 @@ export const AppHeaderUI: FC<TAppHeaderUIProps> = ({ userName }) => (
             `${styles.link} ${styles.link_position_last} ${isActive ? styles.link_active : ''}`
           }
         >
-          {({ isActive }) => (
-            <>
-              <BurgerIcon type={'primary'} />
-              <p className='text text_type_main-default ml-2 mr-10'>
-                Конструктор
-              </p>
-            </>
-          )}
+          <>
+            <BurgerIcon type={'primary'} />
+            <p className='text text_type_main-default ml-2 mr-10'>
+              Конструктор
+            </p>
+          </>
         </NavLink>
         <NavLink
           to='/feed'
@@ -34,12 +32,10 @@ export const AppHeaderUI: FC<TAppHeaderUIProps> = ({ userName }) => (
             `${styles.link} ${styles.link_position_last} ${isActive ? styles.link_active : ''}`
           }
         >
-          {({ isActive }) => (
-            <>
-              <ListIcon type={'primary'} />
-              <p className='text text_type_main-default ml-2'>Лента заказов</p>
-            </>
-          )}
+          <>
+            <ListIcon type={'primary'} />
+            <p className='text text_type_main-default ml-2'>Лента заказов</p>
+          </>
         </NavLink>
       </div>
       <div className={styles.logo}>
@@ -52,14 +48,12 @@ export const AppHeaderUI: FC<TAppHeaderUIProps> = ({ userName }) => (
             `${styles.link} ${styles.link_position_last} ${isActive ? styles.link_active : ''}`
           }
         >
-          {({ isActive }) => (
-            <>
-              <ProfileIcon type={'primary'} />
-              <p className='text text_type_main-default ml-2'>
-                {userName || 'Личный кабинет'}
-              </p>
-            </>
-          )}
+          <>
+            <ProfileIcon type={'primary'} />
+            <p className='text text_type_main-default ml-2'>
+              {userName || 'Личный кабинет'}
+            </p>
+          </>
         </NavLink>
       </div>
     </nav>
