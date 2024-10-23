@@ -34,14 +34,14 @@ export const OrderCardUI: FC<OrderCardUIProps> = memo(
       )}
       <div className={`pt-6 ${styles.order_content}`}>
         <ul className={styles.ingredients}>
-          {orderInfo.ingredientsToShow.map((ingredient, index) => {
+          {orderInfo.ingredientsToShow.map((item, index) => {
             let zIndex = maxIngredients - index;
             let right = 20 * index;
             return (
               <li
                 className={styles.img_wrap}
                 style={{ zIndex: zIndex, right: right }}
-                key={index}
+                key={`${item.uniqueId}--${index}`}
               >
                 <img
                   style={{
@@ -51,8 +51,8 @@ export const OrderCardUI: FC<OrderCardUIProps> = memo(
                         : '1'
                   }}
                   className={styles.img}
-                  src={ingredient.image_mobile}
-                  alt={ingredient.name}
+                  src={item.image_mobile}
+                  alt={item.name}
                 />
                 {maxIngredients === index + 1 ? (
                   <span
