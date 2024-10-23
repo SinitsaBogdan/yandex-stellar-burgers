@@ -17,7 +17,8 @@ const slice = createSlice({
   initialState,
   reducers: {},
   selectors: {
-    getIngredients: (state) => state.ingredients
+    getIngredients: (state) => state.ingredients,
+    getLoading: (state) => state.isLoading
   },
   extraReducers: (builder) => {
     builder
@@ -36,12 +37,9 @@ const slice = createSlice({
 
 export const fetchIngredients = createAsyncThunk(
   'ingredients/getAll',
-  async () => {
-    const ingredients = await getIngredientsApi();
-    return ingredients;
-  }
+  async () => await getIngredientsApi()
 );
 
 export const {} = slice.actions;
-export const { getIngredients } = slice.selectors;
+export const { getIngredients, getLoading } = slice.selectors;
 export default slice.reducer;
