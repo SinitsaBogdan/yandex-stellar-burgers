@@ -35,7 +35,7 @@ export const BurgerConstructor: FC = () => {
     );
   };
   const closeOrderModal = () => {
-    navigate(-1);
+    navigate('/');
   };
 
   const price = useMemo(
