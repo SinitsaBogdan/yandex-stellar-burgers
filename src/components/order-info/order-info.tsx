@@ -11,14 +11,12 @@ export const OrderInfo: FC = () => {
   const { number } = useParams();
   const dispatch = useDispatch();
   const orderData = useSelector(getOrderData);
-  console.log(orderData);
   useEffect(() => {
     if (number) dispatch(fetchOrderId(number));
   }, []);
 
   const ingredients: TIngredient[] = useSelector(getIngredients);
 
-  /* Готовим данные для отображения */
   const orderInfo = useMemo(() => {
     if (!orderData || !ingredients.length) return null;
 
