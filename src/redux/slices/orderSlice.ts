@@ -17,7 +17,11 @@ const initialState: TOrdersState = {
 const slice = createSlice({
   name: 'order',
   initialState,
-  reducers: {},
+  reducers: {
+    setOrderData: (state, action) => {
+      state.orderData = action.payload;
+    }
+  },
   selectors: {
     getIsLoading: (state) => state.isLoading,
     getOrderData: (state) => state.orderData,
@@ -59,6 +63,6 @@ export const fetchCreateOrder = createAsyncThunk(
   async (ingredients: string[]) => await orderBurgerApi(ingredients)
 );
 
-export const {} = slice.actions;
+export const { setOrderData } = slice.actions;
 export const { getIsLoading, getOrderData, getOrderRequest } = slice.selectors;
 export default slice.reducer;
