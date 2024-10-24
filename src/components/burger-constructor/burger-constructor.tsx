@@ -1,9 +1,7 @@
 import { FC, useMemo } from 'react';
 import { TIngredient } from '@utils-types';
 import { BurgerConstructorUI } from '@ui';
-import { useDispatch, useSelector } from '../../redux/store';
-import { useEffect } from 'react';
-import { fetchIngredients } from '../../redux/slices/ingredientsSlice';
+import { useSelector } from '../../redux/store';
 
 import {
   getBun,
