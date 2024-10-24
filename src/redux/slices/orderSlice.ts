@@ -44,7 +44,7 @@ const slice = createSlice({
       })
       .addCase(fetchCreateOrder.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.orderRequest = action.payload.success;
+        state.orderRequest = true;
         state.orderData = action.payload.order;
       });
   }
