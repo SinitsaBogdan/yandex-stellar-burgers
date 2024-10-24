@@ -1,15 +1,17 @@
-import { getOrderByNumberApi } from '@api';
+import { getOrderByNumberApi, orderBurgerApi } from '@api';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { TOrder } from '@utils-types';
 
 type TOrdersState = {
   isLoading: boolean;
   orderData: TOrder | null;
+  orderRequest: boolean;
 };
 
 const initialState: TOrdersState = {
   isLoading: false,
-  orderData: null
+  orderData: null,
+  orderRequest: false
 };
 
 const slice = createSlice({
@@ -18,7 +20,8 @@ const slice = createSlice({
   reducers: {},
   selectors: {
     getIsLoading: (state) => state.isLoading,
-    getOrderData: (state) => state.orderData
+    getOrderData: (state) => state.orderData,
+    getOrderRequest: (state) => state.orderRequest
   },
   extraReducers: (builder) => {
     builder
@@ -32,14 +35,31 @@ const slice = createSlice({
         state.isLoading = false;
         state.orderData = action.payload.orders[0];
       });
+    builder
+      .addCase(fetchCreateOrder.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(fetchCreateOrder.rejected, (state) => {
+        state.isLoading = false;
+      })
+      .addCase(fetchCreateOrder.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.orderRequest = action.payload.success;
+        state.orderData = action.payload.order;
+      });
   }
 });
 
 export const fetchOrderId = createAsyncThunk(
-  'feed/getOrderId',
+  'order/getId',
   async (number: string) => await getOrderByNumberApi(Number(number))
 );
 
+export const fetchCreateOrder = createAsyncThunk(
+  'order/create',
+  async (ingredients: string[]) => await orderBurgerApi(ingredients)
+);
+
 export const {} = slice.actions;
-export const { getIsLoading, getOrderData } = slice.selectors;
+export const { getIsLoading, getOrderData, getOrderRequest } = slice.selectors;
 export default slice.reducer;
