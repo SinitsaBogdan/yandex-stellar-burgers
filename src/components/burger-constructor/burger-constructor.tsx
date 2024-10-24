@@ -7,21 +7,26 @@ import { fetchIngredients } from '../../redux/slices/ingredientsSlice';
 
 import {
   getBun,
-  getIngredients
+  getIngredients,
+  getOrderModalData,
+  getOrderRequest
 } from '../../redux/slices/constructorItemSlice';
+import { useNavigate } from 'react-router-dom';
 
 export const BurgerConstructor: FC = () => {
-  /** TODO: взять переменные constructorItems, orderRequest и orderModalData из стора */
+  const navigate = useNavigate();
   const bun = useSelector(getBun);
   const ingredients = useSelector(getIngredients);
 
-  const orderRequest = false;
-  const orderModalData = null;
+  const orderRequest = useSelector(getOrderRequest);
+  const orderModalData = useSelector(getOrderModalData);
 
   const onOrderClick = () => {
     if (!bun || orderRequest) return;
   };
-  const closeOrderModal = () => {};
+  const closeOrderModal = () => {
+    navigate(-1);
+  };
 
   const price = useMemo(
     () =>
