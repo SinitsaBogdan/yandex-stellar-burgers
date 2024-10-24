@@ -37,14 +37,13 @@ const slice = createSlice({
       });
     builder
       .addCase(fetchCreateOrder.pending, (state) => {
-        state.isLoading = true;
+        state.orderRequest = true;
       })
       .addCase(fetchCreateOrder.rejected, (state) => {
-        state.isLoading = false;
+        state.orderRequest = false;
       })
       .addCase(fetchCreateOrder.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.orderRequest = true;
+        state.orderRequest = false;
         state.orderData = action.payload.order;
       });
   }
