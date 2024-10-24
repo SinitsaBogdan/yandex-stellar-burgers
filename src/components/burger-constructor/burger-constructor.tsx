@@ -1,26 +1,38 @@
 import { FC, useMemo } from 'react';
 import { TIngredient } from '@utils-types';
 import { BurgerConstructorUI } from '@ui';
-import { useSelector } from '../../redux/store';
+import { useSelector, useDispatch } from '../../redux/store';
+import { useNavigate } from 'react-router-dom';
+
+import {
+  fetchCreateOrder,
+  getOrderData,
+  getOrderRequest
+} from '../../redux/slices/orderSlice';
 
 import {
   getBun,
-  getIngredients,
-  getOrderModalData,
-  getOrderRequest
+  getIngredients
 } from '../../redux/slices/constructorItemSlice';
-import { useNavigate } from 'react-router-dom';
 
 export const BurgerConstructor: FC = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const bun = useSelector(getBun);
   const ingredients = useSelector(getIngredients);
 
   const orderRequest = useSelector(getOrderRequest);
-  const orderModalData = useSelector(getOrderModalData);
+  const orderModalData = useSelector(getOrderData);
 
   const onOrderClick = () => {
     if (!bun || orderRequest) return;
+
+    dispatch(
+      fetchCreateOrder([
+        bun._id,
+        ...ingredients.map((ingredient: TIngredient) => ingredient._id)
+      ])
+    );
   };
   const closeOrderModal = () => {
     navigate(-1);
