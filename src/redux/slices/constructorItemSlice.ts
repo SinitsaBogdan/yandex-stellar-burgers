@@ -4,15 +4,11 @@ import { TIngredient, TOrder } from '@utils-types';
 type TConstructorItemState = {
   bun: TIngredient | null;
   ingredients: TIngredient[];
-  orderRequest: boolean;
-  orderModalData: TOrder | null;
 };
 
 const initialState: TConstructorItemState = {
   bun: null,
-  ingredients: [],
-  orderRequest: false,
-  orderModalData: null
+  ingredients: []
 };
 
 const slice = createSlice({
@@ -31,13 +27,10 @@ const slice = createSlice({
   },
   selectors: {
     getBun: (state) => state.bun,
-    getIngredients: (state) => state.ingredients,
-    getOrderRequest: (state) => state.orderRequest,
-    getOrderModalData: (state) => state.orderModalData
+    getIngredients: (state) => state.ingredients
   }
 });
 
 export const { setBun, setIngredients, setIngredient } = slice.actions;
-export const { getBun, getIngredients, getOrderRequest, getOrderModalData } =
-  slice.selectors;
+export const { getBun, getIngredients } = slice.selectors;
 export default slice.reducer;
