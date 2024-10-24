@@ -7,10 +7,12 @@ import { useNavigate } from 'react-router-dom';
 import {
   fetchCreateOrder,
   getOrderData,
-  getOrderRequest
+  getOrderRequest,
+  setOrderData
 } from '../../redux/slices/orderSlice';
 
 import {
+  clear,
   getBun,
   getIngredients
 } from '../../redux/slices/constructorItemSlice';
@@ -38,7 +40,8 @@ export const BurgerConstructor: FC = () => {
     );
   };
   const closeOrderModal = () => {
-    navigate('/profile/orders');
+    dispatch(setOrderData(null));
+    dispatch(clear());
   };
 
   const price = useMemo(
