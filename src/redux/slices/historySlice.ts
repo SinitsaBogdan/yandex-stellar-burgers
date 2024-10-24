@@ -1,4 +1,4 @@
-import { getFeedsApi } from '@api';
+import { getFeedsApi, getOrdersApi } from '@api';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { TOrder } from '@utils-types';
 
@@ -9,6 +9,7 @@ type THistoryState = {
     total: number;
     totalToday: number;
   };
+  history: TOrder[];
 };
 
 const initialState: THistoryState = {
@@ -17,7 +18,8 @@ const initialState: THistoryState = {
     orders: [],
     total: 0,
     totalToday: 0
-  }
+  },
+  history: []
 };
 
 const slice = createSlice({
@@ -26,9 +28,10 @@ const slice = createSlice({
   reducers: {},
   selectors: {
     getFeeds: (state) => state.feeds,
-    getOrders: (state) => state.feeds.orders,
-    getTotal: (state) => state.feeds.total,
-    getTotalToday: (state) => state.feeds.totalToday
+    getHistory: (state) => state.history,
+    getFeedsOrders: (state) => state.feeds.orders,
+    getFeedsTotal: (state) => state.feeds.total,
+    getFeedsTotalToday: (state) => state.feeds.totalToday
   },
   extraReducers: (builder) => {
     builder
@@ -42,6 +45,17 @@ const slice = createSlice({
         state.isLoading = false;
         state.feeds = action.payload;
       });
+    builder
+      .addCase(fetchUserOrdersHistory.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(fetchUserOrdersHistory.rejected, (state) => {
+        state.isLoading = false;
+      })
+      .addCase(fetchUserOrdersHistory.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.history = action.payload;
+      });
   }
 });
 
@@ -50,6 +64,17 @@ export const fetchFeeds = createAsyncThunk(
   async () => await getFeedsApi()
 );
 
+export const fetchUserOrdersHistory = createAsyncThunk(
+  'feed/getUserHistory',
+  async () => await getOrdersApi()
+);
+
 export const {} = slice.actions;
-export const { getOrders, getTotal, getTotalToday, getFeeds } = slice.selectors;
+export const {
+  getHistory,
+  getFeedsOrders,
+  getFeedsTotal,
+  getFeedsTotalToday,
+  getFeeds
+} = slice.selectors;
 export default slice.reducer;
