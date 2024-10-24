@@ -2,20 +2,14 @@ import { createSlice } from '@reduxjs/toolkit';
 import { TIngredient, TOrder } from '@utils-types';
 
 type TConstructorItemState = {
-  bun: {
-    _id: string;
-    price: number;
-  };
+  bun: TIngredient | null;
   ingredients: TIngredient[];
   orderRequest: boolean;
   orderModalData: TOrder | null;
 };
 
 const initialState: TConstructorItemState = {
-  bun: {
-    _id: '',
-    price: 0
-  },
+  bun: null,
   ingredients: [],
   orderRequest: false,
   orderModalData: null
@@ -30,6 +24,9 @@ const slice = createSlice({
     },
     setIngredients(state, action) {
       state.ingredients = action.payload;
+    },
+    setIngredient(state, action) {
+      state.ingredients = [...state.ingredients, action.payload];
     }
   },
   selectors: {
@@ -40,7 +37,7 @@ const slice = createSlice({
   }
 });
 
-export const { setBun, setIngredients } = slice.actions;
+export const { setBun, setIngredients, setIngredient } = slice.actions;
 export const { getBun, getIngredients, getOrderRequest, getOrderModalData } =
   slice.selectors;
 export default slice.reducer;
