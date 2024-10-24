@@ -18,6 +18,10 @@ const slice = createSlice({
     setBun(state, action) {
       state.bun = action.payload;
     },
+    clear(state) {
+      state.bun = null;
+      state.ingredients = [];
+    },
     setIngredients(state, action) {
       state.ingredients = action.payload;
     },
@@ -31,6 +35,6 @@ const slice = createSlice({
   }
 });
 
-export const { setBun, setIngredients, setIngredient } = slice.actions;
+export const { clear, setBun, setIngredients, setIngredient } = slice.actions;
 export const { getBun, getIngredients } = slice.selectors;
 export default slice.reducer;
