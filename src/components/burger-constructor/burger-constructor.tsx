@@ -35,6 +35,7 @@ export const BurgerConstructor: FC = () => {
     dispatch(
       fetchCreateOrder([
         bun._id,
+        bun._id,
         ...ingredients.map((ingredient: TIngredient) => ingredient._id)
       ])
     );
