@@ -31,8 +31,6 @@ export const BurgerConstructorElement: FC<BurgerConstructorElementProps> = memo(
 
     const handleClose = () => {
       const copy = [...ingredients];
-      //   const [item] = ingredients.splice(index, 1);
-      //   const itemIndex = ingredients.indexOf(item);
       copy.splice(index, 1);
       dispatch(setIngredients(copy));
     };
