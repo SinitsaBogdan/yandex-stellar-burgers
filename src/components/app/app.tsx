@@ -25,6 +25,7 @@ import { useEffect } from 'react';
 import { fetchIngredients } from '../../redux/slices/ingredientsSlice';
 import { fetchFeeds } from '../../redux/slices/historySlice';
 import { getCookie } from '../../utils/cookie';
+import { setOrderData } from '../../redux/slices/orderSlice';
 
 const App = () => {
   const navigate = useNavigate();
@@ -142,7 +143,13 @@ const App = () => {
           <Route
             path='/feed/:number'
             element={
-              <Modal title='Детали заказа' onClose={() => navigate(-1)}>
+              <Modal
+                title='Детали заказа'
+                onClose={() => {
+                  dispatch(setOrderData(null));
+                  navigate(-1);
+                }}
+              >
                 <OrderInfo />
               </Modal>
             }
