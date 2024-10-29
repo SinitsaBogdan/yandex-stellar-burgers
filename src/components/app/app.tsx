@@ -36,7 +36,7 @@ const App = () => {
 
   useEffect(() => {
     dispatch(fetchIngredients());
-    dispatch(fetchFeeds());
+    // dispatch(fetchFeeds());
 
     if (getCookie('accessToken')) {
       try {
