@@ -16,12 +16,13 @@ import {
   getBun,
   getIngredients
 } from '../../redux/slices/constructorItemSlice';
-import { getIsAuth } from '../../redux/slices/userSlice';
+import { getIsAuth, getUser } from '../../redux/slices/userSlice';
 
 export const BurgerConstructor: FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const isAutch = useSelector(getIsAuth);
+  const user = useSelector(getUser);
   const bun = useSelector(getBun);
   const ingredients = useSelector(getIngredients);
 
@@ -31,19 +32,21 @@ export const BurgerConstructor: FC = () => {
   const onOrderClick = () => {
     if (!isAutch) navigate('/login');
     if (!bun || orderRequest) return;
-
-    dispatch(
-      fetchCreateOrder([
-        bun._id,
-        bun._id,
-        ...ingredients.map((ingredient: TIngredient) => ingredient._id)
-      ])
-    )
-      .unwrap()
-      .then(() => {
-        dispatch(clear());
-      });
+    if (user && isAutch) {
+      dispatch(
+        fetchCreateOrder([
+          bun._id,
+          bun._id,
+          ...ingredients.map((ingredient: TIngredient) => ingredient._id)
+        ])
+      )
+        .unwrap()
+        .then(() => {
+          dispatch(clear());
+        });
+    }
   };
+
   const closeOrderModal = () => dispatch(setOrderData(null));
 
   const price = useMemo(
