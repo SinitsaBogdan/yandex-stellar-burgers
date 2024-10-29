@@ -38,12 +38,13 @@ export const BurgerConstructor: FC = () => {
         bun._id,
         ...ingredients.map((ingredient: TIngredient) => ingredient._id)
       ])
-    );
+    )
+      .unwrap()
+      .then(() => {
+        dispatch(clear());
+      });
   };
-  const closeOrderModal = () => {
-    dispatch(setOrderData(null));
-    dispatch(clear());
-  };
+  const closeOrderModal = () => dispatch(setOrderData(null));
 
   const price = useMemo(
     () =>
