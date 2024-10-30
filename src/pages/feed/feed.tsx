@@ -2,7 +2,11 @@ import { Preloader } from '@ui';
 import { FeedUI } from '@ui-pages';
 import { TOrder } from '@utils-types';
 import { FC, useEffect } from 'react';
-import { fetchFeeds, getFeedsOrders } from '../../redux/slices/historySlice';
+import {
+  addGlobalFeed,
+  fetchFeeds,
+  getFeedsOrders
+} from '../../redux/slices/historySlice';
 import { useDispatch, useSelector } from '../../redux/store';
 
 export const Feed: FC = () => {
@@ -10,7 +14,11 @@ export const Feed: FC = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchFeeds());
+    dispatch(fetchFeeds())
+      .unwrap()
+      .then((response) => {
+        dispatch(addGlobalFeed(response));
+      });
   }, [dispatch]);
 
   if (!orders.length) {
@@ -21,7 +29,11 @@ export const Feed: FC = () => {
     <FeedUI
       orders={orders}
       handleGetFeeds={() => {
-        dispatch(fetchFeeds());
+        dispatch(fetchFeeds())
+          .unwrap()
+          .then((response) => {
+            dispatch(addGlobalFeed(response));
+          });
       }}
     />
   );

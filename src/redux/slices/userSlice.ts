@@ -10,7 +10,7 @@ import {
 } from '@api';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { TUser } from '@utils-types';
-import { deleteCookie, setCookie } from '../../utils/cookie';
+import { deleteCookie, getCookie, setCookie } from '../../utils/cookie';
 
 type TUserState = {
   isAuth: boolean;
@@ -113,6 +113,8 @@ const slice = createSlice({
       })
       .addCase(fetchRefreshTocken.rejected, (state, action) => {
         state.error = action.error.message;
+        deleteCookie('accessToken');
+        localStorage.removeItem('refreshToken');
       })
       .addCase(fetchRefreshTocken.fulfilled, (state, action) => {
         setCookie('accessToken', action.payload.accessToken);

@@ -22,10 +22,12 @@ import {
 } from '../../redux/slices/userSlice';
 import { useDispatch, useSelector } from '../../redux/store';
 import { useEffect } from 'react';
-import { fetchIngredients } from '../../redux/slices/ingredientsSlice';
-import { fetchFeeds } from '../../redux/slices/historySlice';
+import {
+  fetchIngredients,
+  addIngredients
+} from '../../redux/slices/ingredientsSlice';
 import { getCookie } from '../../utils/cookie';
-import { setOrderData } from '../../redux/slices/orderSlice';
+import { clearOrderData } from '../../redux/slices/orderSlice';
 
 const App = () => {
   const navigate = useNavigate();
@@ -35,17 +37,20 @@ const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchIngredients());
-    // dispatch(fetchFeeds());
+    dispatch(fetchIngredients())
+      .unwrap()
+      .then((result) => {
+        dispatch(addIngredients(result));
+      });
 
-    if (getCookie('accessToken')) {
+    if (getCookie('accessToken') && !isAutch) {
       try {
         dispatch(fetchUserCheck())
           .unwrap()
           .then(() => dispatch(fetchRefreshTocken()));
       } catch (error) {}
     }
-  }, [dispatch]);
+  }, []);
 
   return (
     <div className={styles.app}>
@@ -146,7 +151,7 @@ const App = () => {
               <Modal
                 title='Детали заказа'
                 onClose={() => {
-                  dispatch(setOrderData(null));
+                  dispatch(clearOrderData());
                   navigate(-1);
                 }}
               >

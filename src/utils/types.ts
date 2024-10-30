@@ -1,4 +1,5 @@
 export type TIngredient = {
+  uniqueId?: string;
   _id: string;
   name: string;
   type: string;
@@ -17,6 +18,7 @@ export type TConstructorIngredient = TIngredient & {
 };
 
 export type TOrder = {
+  uniqueId?: string;
   _id: string;
   status: string;
   name: string;

@@ -1,6 +1,7 @@
 import { getOrderByNumberApi, orderBurgerApi } from '@api';
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { TOrder } from '@utils-types';
+import { v4 as uuidv4 } from 'uuid';
 
 type TOrdersState = {
   isLoading: boolean;
@@ -18,8 +19,16 @@ const slice = createSlice({
   name: 'order',
   initialState,
   reducers: {
-    setOrderData: (state, action) => {
-      state.orderData = action.payload;
+    setOrderData: {
+      reducer: (state, { payload }: PayloadAction<TOrder>) => {
+        state.orderData = payload;
+      },
+      prepare: (item: TOrder) => ({
+        payload: { ...item, uniqueId: uuidv4() }
+      })
+    },
+    clearOrderData: (state) => {
+      state.orderData = null;
     }
   },
   selectors: {
@@ -63,6 +72,6 @@ export const fetchCreateOrder = createAsyncThunk(
   async (ingredients: string[]) => await orderBurgerApi(ingredients)
 );
 
-export const { setOrderData } = slice.actions;
+export const { setOrderData, clearOrderData } = slice.actions;
 export const { getIsLoading, getOrderData, getOrderRequest } = slice.selectors;
 export default slice.reducer;

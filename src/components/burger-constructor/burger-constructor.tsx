@@ -8,7 +8,7 @@ import {
   fetchCreateOrder,
   getOrderData,
   getOrderRequest,
-  setOrderData
+  clearOrderData
 } from '../../redux/slices/orderSlice';
 
 import {
@@ -47,7 +47,7 @@ export const BurgerConstructor: FC = () => {
     }
   };
 
-  const closeOrderModal = () => dispatch(setOrderData(null));
+  const closeOrderModal = () => dispatch(clearOrderData());
 
   const price = useMemo(
     () =>

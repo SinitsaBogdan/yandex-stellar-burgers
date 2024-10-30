@@ -1,6 +1,7 @@
-import { getFeedsApi, getOrdersApi } from '@api';
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { getFeedsApi, getOrdersApi, TFeedsResponse } from '@api';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { TOrder } from '@utils-types';
+import { v4 as uuidv4 } from 'uuid';
 
 type THistoryState = {
   isLoading: boolean;
@@ -25,7 +26,33 @@ const initialState: THistoryState = {
 const slice = createSlice({
   name: 'history',
   initialState,
-  reducers: {},
+  reducers: {
+    addGlobalFeed: {
+      reducer: (state, { payload }: PayloadAction<TFeedsResponse>) => {
+        state.feeds = payload;
+      },
+      prepare: (response: TFeedsResponse) => ({
+        payload: {
+          ...response,
+          orders: response.orders.map((item) => {
+            item.uniqueId = uuidv4();
+            return item;
+          })
+        }
+      })
+    },
+    addUserFeeds: {
+      reducer: (state, { payload }: PayloadAction<TOrder[]>) => {
+        state.history = payload;
+      },
+      prepare: (items: TOrder[]) => ({
+        payload: items.map((item) => {
+          item.uniqueId = uuidv4();
+          return item;
+        })
+      })
+    }
+  },
   selectors: {
     getFeeds: (state) => state.feeds,
     getHistory: (state) => state.history,
@@ -41,9 +68,8 @@ const slice = createSlice({
       .addCase(fetchFeeds.rejected, (state) => {
         state.isLoading = false;
       })
-      .addCase(fetchFeeds.fulfilled, (state, action) => {
+      .addCase(fetchFeeds.fulfilled, (state) => {
         state.isLoading = false;
-        state.feeds = action.payload;
       });
     builder
       .addCase(fetchUserOrdersHistory.pending, (state) => {
@@ -52,9 +78,8 @@ const slice = createSlice({
       .addCase(fetchUserOrdersHistory.rejected, (state) => {
         state.isLoading = false;
       })
-      .addCase(fetchUserOrdersHistory.fulfilled, (state, action) => {
+      .addCase(fetchUserOrdersHistory.fulfilled, (state) => {
         state.isLoading = false;
-        state.history = action.payload;
       });
   }
 });
@@ -69,7 +94,7 @@ export const fetchUserOrdersHistory = createAsyncThunk(
   async () => await getOrdersApi()
 );
 
-export const {} = slice.actions;
+export const { addGlobalFeed, addUserFeeds } = slice.actions;
 export const {
   getHistory,
   getFeedsOrders,

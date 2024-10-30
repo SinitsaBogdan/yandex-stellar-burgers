@@ -1,6 +1,7 @@
 import { getIngredientsApi } from '@api';
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { TIngredient } from '@utils-types';
+import { v4 as uuidv4 } from 'uuid';
 
 type TIngredientsState = {
   isLoading: boolean;
@@ -15,7 +16,19 @@ const initialState: TIngredientsState = {
 const slice = createSlice({
   name: 'ingredients',
   initialState,
-  reducers: {},
+  reducers: {
+    addIngredients: {
+      reducer: (state, { payload }: PayloadAction<TIngredient[]>) => {
+        state.ingredients = payload;
+      },
+      prepare: (items: TIngredient[]) => ({
+        payload: items.map((item) => {
+          item.uniqueId = uuidv4();
+          return item;
+        })
+      })
+    }
+  },
   selectors: {
     getIngredients: (state) => state.ingredients,
     getLoading: (state) => state.isLoading
@@ -30,7 +43,6 @@ const slice = createSlice({
       })
       .addCase(fetchIngredients.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.ingredients = action.payload;
       });
   }
 });
@@ -40,6 +52,6 @@ export const fetchIngredients = createAsyncThunk(
   async () => await getIngredientsApi()
 );
 
-export const {} = slice.actions;
+export const { addIngredients } = slice.actions;
 export const { getIngredients, getLoading } = slice.selectors;
 export default slice.reducer;
