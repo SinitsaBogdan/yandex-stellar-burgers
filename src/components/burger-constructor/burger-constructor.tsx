@@ -9,20 +9,20 @@ import {
   getOrderData,
   getOrderRequest,
   clearOrderData
-} from '../../redux/slices/orderSlice';
+} from '../../redux/slices/orders/orderSlice';
 
 import {
   clear,
   getBun,
   getIngredients
-} from '../../redux/slices/constructorItemSlice';
-import { getIsAuth, getUser } from '../../redux/slices/userSlice';
+} from '../../redux/slices/constructors/constructorItemSlice';
+import { selectIsAuth, selectUser } from '../../redux/slices/users/userSlice';
 
 export const BurgerConstructor: FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const isAutch = useSelector(getIsAuth);
-  const user = useSelector(getUser);
+  const isAutch = useSelector(selectIsAuth);
+  const user = useSelector(selectUser);
   const bun = useSelector(getBun);
   const ingredients = useSelector(getIngredients);
 
