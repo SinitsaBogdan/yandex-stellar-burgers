@@ -6,7 +6,7 @@ import {
   addGlobalFeed,
   fetchFeeds,
   getFeedsOrders
-} from '../../redux/slices/historySlice';
+} from '../../redux/slices/history/historySlice';
 import { useDispatch, useSelector } from '../../redux/store';
 
 export const Feed: FC = () => {
