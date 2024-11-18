@@ -18,20 +18,20 @@ import { ProtectedRoute } from '../protected-route/ProtectedRoute';
 import {
   fetchRefreshTocken,
   fetchUserCheck,
-  getIsAuth
-} from '../../redux/slices/userSlice';
+  selectIsAuth
+} from '../../redux/slices/users/userSlice';
 import { useDispatch, useSelector } from '../../redux/store';
 import { useEffect } from 'react';
 import {
   fetchIngredients,
   addIngredients
-} from '../../redux/slices/ingredientsSlice';
+} from '../../redux/slices/ingredients/ingredientsSlice';
 import { getCookie } from '../../utils/cookie';
-import { clearOrderData } from '../../redux/slices/orderSlice';
+import { clearOrderData } from '../../redux/slices/orders/orderSlice';
 
 const App = () => {
   const navigate = useNavigate();
-  const isAutch = useSelector(getIsAuth);
+  const isAutch = useSelector(selectIsAuth);
   const location = useLocation();
   const background = location.state?.background;
   const dispatch = useDispatch();
