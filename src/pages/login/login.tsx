@@ -1,14 +1,14 @@
 import { FC, SyntheticEvent, useEffect, useState } from 'react';
 import { LoginUI } from '@ui-pages';
 import { useDispatch } from '../../redux/store';
-import { fetchLogin, getError } from '../../redux/slices/userSlice';
+import { fetchLogin, selectError } from '../../redux/slices/users/userSlice';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 export const Login: FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const error = useSelector(getError);
+  const error = useSelector(selectError);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
