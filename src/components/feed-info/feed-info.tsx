@@ -3,7 +3,7 @@ import { FC } from 'react';
 import { TOrder } from '@utils-types';
 import { FeedInfoUI } from '../ui/feed-info';
 import { useSelector } from '../../redux/store';
-import { getFeeds } from '../../redux/slices/historySlice';
+import { getFeeds } from '../../redux/slices/history/historySlice';
 
 const getOrders = (orders: TOrder[], status: string): number[] =>
   orders
