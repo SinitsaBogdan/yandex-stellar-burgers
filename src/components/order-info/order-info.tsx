@@ -8,8 +8,8 @@ import {
   fetchOrderId,
   getOrderData,
   setOrderData
-} from '../../redux/slices/orderSlice';
-import { getIngredients } from '../../redux/slices/ingredientsSlice';
+} from '../../redux/slices/orders/orderSlice';
+import { getIngredients } from '../../redux/slices/ingredients/ingredientsSlice';
 
 export const OrderInfo: FC = () => {
   const { number } = useParams();
