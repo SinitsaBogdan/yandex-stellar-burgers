@@ -6,7 +6,7 @@ import { useSelector } from '../../redux/store';
 import {
   getBun,
   getIngredients
-} from '../../redux/slices/constructorItemSlice';
+} from '../../redux/slices/constructors/constructorItemSlice';
 
 export const IngredientsCategory = forwardRef<
   HTMLUListElement,
