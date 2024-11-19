@@ -1,5 +1,5 @@
-import { getFeedsApi, getOrdersApi } from "../../../utils/burger-api";
-import { createAsyncThunk } from "@reduxjs/toolkit";
+import { getFeedsApi, getOrdersApi } from '../../../utils/burger-api';
+import { createAsyncThunk } from '@reduxjs/toolkit';
 
 export const fetchFeeds = createAsyncThunk(
   'feed/getAll',
