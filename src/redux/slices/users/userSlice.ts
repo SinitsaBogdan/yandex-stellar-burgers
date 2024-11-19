@@ -1,7 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { TUser } from '@utils-types';
 import { deleteCookie, setCookie } from '../../../utils/cookie';
-import { fetchLogin, fetchLogout, fetchRefreshTocken, fetchRegister, fetchUpdateUser, fetchUserCheck } from './thunks';
+import {
+  fetchLogin,
+  fetchLogout,
+  fetchRefreshTocken,
+  fetchRegister,
+  fetchUpdateUser,
+  fetchUserCheck
+} from './thunks';
 
 export type TUserState = {
   isAuth: boolean;
