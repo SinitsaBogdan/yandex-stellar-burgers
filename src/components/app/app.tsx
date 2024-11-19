@@ -11,23 +11,20 @@ import {
 } from '@pages';
 import '../../index.css';
 import styles from './app.module.css';
-
 import { AppHeader, IngredientDetails, Modal, OrderInfo } from '@components';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { ProtectedRoute } from '../protected-route/ProtectedRoute';
-import {
-  fetchRefreshTocken,
-  fetchUserCheck,
-  selectIsAuth
-} from '../../redux/slices/users/userSlice';
 import { useDispatch, useSelector } from '../../redux/store';
 import { useEffect } from 'react';
-import {
-  fetchIngredients,
-  addIngredients
-} from '../../redux/slices/ingredients/ingredientsSlice';
 import { getCookie } from '../../utils/cookie';
 import { clearOrderData } from '../../redux/slices/orders/orderSlice';
+import { selectIsAuth } from '../../redux/slices/users/userSlice';
+import { fetchIngredients } from '../../redux/slices/ingredients/thunks';
+import { addIngredients } from '../../redux/slices/ingredients/ingredientsSlice';
+import {
+  fetchUserCheck,
+  fetchRefreshTocken
+} from '../../redux/slices/users/thunks';
 
 const App = () => {
   const navigate = useNavigate();
