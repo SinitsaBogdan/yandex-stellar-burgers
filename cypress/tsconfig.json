@@ -4,5 +4,5 @@
     "noEmit": true,
     "types": ["cypress"]
   },
-  "include": ["../node_modules/cypress", "./**/*.ts", "e2e/app/constructor.cy.tsx"]
+  "include": ["../node_modules/cypress", "./**/*.ts", "e2e/app/constructor.cy.ts"]
 }
