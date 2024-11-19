@@ -1,8 +1,16 @@
-import { test, describe } from '@jest/globals';
+import { test } from '@jest/globals';
+import { configureStore } from '@reduxjs/toolkit';
+import slice from '../../historySlice';
+import { getFeedsTotal } from '../../historySlice';
 
-describe('[ getFeedsTotal ] - Проверка селлектора.', () => {
+test('[ getFeedsTotal ] - Проверка селлектора.', () => {
+  const store = configureStore({
+    reducer: {
+      history: slice
+    }
+  });
 
-    test('', () => {
+  const response = getFeedsTotal(store.getState());
 
-    })
-})
+  expect(response).toEqual(0);
+});
