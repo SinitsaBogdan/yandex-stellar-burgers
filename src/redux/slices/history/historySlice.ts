@@ -14,7 +14,7 @@ type THistoryState = {
   history: TOrder[];
 };
 
-const initialState: THistoryState = {
+export const initialState: THistoryState = {
   isLoading: false,
   feeds: {
     orders: [],
