@@ -1,5 +1,8 @@
 import { test } from '@jest/globals';
-import slice, { initialState, setIngredients } from '../../constructorItemSlice';
+import slice, {
+  initialState,
+  setIngredients
+} from '../../constructorItemSlice';
 import data from '../ingridients.json';
 import newItem from '../newIngridient.json';
 
