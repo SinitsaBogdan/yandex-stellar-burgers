@@ -1,16 +1,16 @@
 import { test } from '@jest/globals';
 import { configureStore } from '@reduxjs/toolkit';
-import orderSlice from "../../orderSlice";
-import { getIsLoading } from "../../orderSlice";
+import slice from '../../orderSlice';
+import { getIsLoading } from '../../orderSlice';
 
 test('[ getIsLoading ] - Проверка селлектора.', () => {
-    const store = configureStore({
-        reducer: {
-            order: orderSlice
-        },
-    });
+  const store = configureStore({
+    reducer: {
+      order: slice
+    }
+  });
 
-    const response = getIsLoading(store.getState());
+  const response = getIsLoading(store.getState());
 
-    expect(response).toEqual(false)
-})
+  expect(response).toEqual(false);
+});
