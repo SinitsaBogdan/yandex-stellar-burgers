@@ -1,16 +1,16 @@
 import { test } from '@jest/globals';
 import { configureStore } from '@reduxjs/toolkit';
-import userSlice from "../../userSlice";
-import { selectError } from "../../userSlice";
+import slice from '../../userSlice';
+import { selectError } from '../../userSlice';
 
 test('[ getError ] - Проверка селлектора.', () => {
-    const store = configureStore({
-        reducer: {
-            user: userSlice
-        },
-    });
+  const store = configureStore({
+    reducer: {
+      user: slice
+    }
+  });
 
-    const response = selectError(store.getState());
+  const response = selectError(store.getState());
 
-    expect(response).toEqual('')
-})
+  expect(response).toEqual('');
+});
