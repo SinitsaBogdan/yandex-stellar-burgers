@@ -10,13 +10,13 @@ import {
   fetchUserCheck
 } from './thunks';
 
-export type TUserState = {
+type TUserState = {
   isAuth: boolean;
   user: TUser;
   error: string | undefined;
 };
 
-const initialState: TUserState = {
+export const initialState: TUserState = {
   isAuth: false,
   user: {
     email: '',
