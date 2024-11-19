@@ -5,7 +5,6 @@ import { useSelector, useDispatch } from '../../redux/store';
 import { useNavigate } from 'react-router-dom';
 
 import {
-  fetchCreateOrder,
   getOrderData,
   getOrderRequest,
   clearOrderData
@@ -17,6 +16,7 @@ import {
   getIngredients
 } from '../../redux/slices/constructors/constructorItemSlice';
 import { selectIsAuth, selectUser } from '../../redux/slices/users/userSlice';
+import { fetchCreateOrder } from '../../redux/slices/orders/thunks';
 
 export const BurgerConstructor: FC = () => {
   const navigate = useNavigate();
