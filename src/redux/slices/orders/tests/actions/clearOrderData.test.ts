@@ -1,6 +1,6 @@
 import { test } from '@jest/globals';
 import slice, { clearOrderData, initialState } from '../../orderSlice';
-import data from "../order.json";
+import data from '../order.json';
 
 const initial = JSON.parse(JSON.stringify(initialState)) as typeof initialState;
 initial.orderData = data;
