@@ -6,11 +6,13 @@ import { fetchIngredients } from './thunks';
 type TIngredientsState = {
   isLoading: boolean;
   ingredients: TIngredient[];
+  error: string;
 };
 
 export const initialState: TIngredientsState = {
   isLoading: false,
-  ingredients: []
+  ingredients: [],
+  error: ''
 };
 
 const slice = createSlice({
