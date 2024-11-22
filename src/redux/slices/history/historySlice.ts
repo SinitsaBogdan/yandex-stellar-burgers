@@ -1,7 +1,8 @@
-import { getFeedsApi, getOrdersApi, TFeedsResponse } from '@api';
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { TFeedsResponse } from '../../../utils/burger-api';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { TOrder } from '@utils-types';
 import { v4 as uuidv4 } from 'uuid';
+import { fetchFeeds, fetchUserOrdersHistory } from './thunks';
 
 type THistoryState = {
   isLoading: boolean;
@@ -13,7 +14,7 @@ type THistoryState = {
   history: TOrder[];
 };
 
-const initialState: THistoryState = {
+export const initialState: THistoryState = {
   isLoading: false,
   feeds: {
     orders: [],
@@ -54,8 +55,8 @@ const slice = createSlice({
     }
   },
   selectors: {
-    getFeeds: (state) => state.feeds,
     getHistory: (state) => state.history,
+    getFeeds: (state) => state.feeds,
     getFeedsOrders: (state) => state.feeds.orders,
     getFeedsTotal: (state) => state.feeds.total,
     getFeedsTotalToday: (state) => state.feeds.totalToday
@@ -83,16 +84,6 @@ const slice = createSlice({
       });
   }
 });
-
-export const fetchFeeds = createAsyncThunk(
-  'feed/getAll',
-  async () => await getFeedsApi()
-);
-
-export const fetchUserOrdersHistory = createAsyncThunk(
-  'feed/getUserHistory',
-  async () => await getOrdersApi()
-);
 
 export const { addGlobalFeed, addUserFeeds } = slice.actions;
 export const {

@@ -5,7 +5,7 @@ import { useSelector } from '../../redux/store';
 import {
   getIngredients,
   setIngredients
-} from '../../redux/slices/constructorItemSlice';
+} from '../../redux/slices/constructors/constructorItemSlice';
 import { useDispatch } from 'react-redux';
 
 function move(list: Array<any>, from: number, to: number) {

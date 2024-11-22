@@ -2,12 +2,12 @@ import { Preloader } from '@ui';
 import { FeedUI } from '@ui-pages';
 import { TOrder } from '@utils-types';
 import { FC, useEffect } from 'react';
+import { useDispatch, useSelector } from '../../redux/store';
 import {
   addGlobalFeed,
-  fetchFeeds,
   getFeedsOrders
-} from '../../redux/slices/historySlice';
-import { useDispatch, useSelector } from '../../redux/store';
+} from '../../redux/slices/history/historySlice';
+import { fetchFeeds } from '../../redux/slices/history/thunks';
 
 export const Feed: FC = () => {
   const orders: TOrder[] = useSelector(getFeedsOrders);

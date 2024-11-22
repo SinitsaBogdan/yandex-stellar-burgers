@@ -1,16 +1,14 @@
-import {
-  getUserApi,
-  loginUserApi,
-  logoutApi,
-  refreshToken,
-  registerUserApi,
-  TLoginData,
-  TRegisterData,
-  updateUserApi
-} from '@api';
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import { TUser } from '@utils-types';
-import { deleteCookie, getCookie, setCookie } from '../../utils/cookie';
+import { deleteCookie, setCookie } from '../../../utils/cookie';
+import {
+  fetchLogin,
+  fetchLogout,
+  fetchRefreshTocken,
+  fetchRegister,
+  fetchUpdateUser,
+  fetchUserCheck
+} from './thunks';
 
 type TUserState = {
   isAuth: boolean;
@@ -18,7 +16,7 @@ type TUserState = {
   error: string | undefined;
 };
 
-const initialState: TUserState = {
+export const initialState: TUserState = {
   isAuth: false,
   user: {
     email: '',
@@ -32,9 +30,9 @@ const slice = createSlice({
   initialState,
   reducers: {},
   selectors: {
-    getIsAuth: (state) => state.isAuth,
-    getUser: (state) => state.user,
-    getError: (state) => state.error
+    selectError: (state) => state.error,
+    selectIsAuth: (state) => state.isAuth,
+    selectUser: (state) => state.user
   },
   extraReducers: (builder) => {
     builder
@@ -123,36 +121,6 @@ const slice = createSlice({
   }
 });
 
-export const fetchLogin = createAsyncThunk(
-  'user/login',
-  async (data: TLoginData) => await loginUserApi(data)
-);
-
-export const fetchUpdateUser = createAsyncThunk(
-  'user/update',
-  async (data: TRegisterData) => await updateUserApi(data)
-);
-
-export const fetchLogout = createAsyncThunk(
-  'user/logaut',
-  async () => await logoutApi()
-);
-
-export const fetchRegister = createAsyncThunk(
-  'user/register',
-  async (data: TRegisterData) => await registerUserApi(data)
-);
-
-export const fetchUserCheck = createAsyncThunk(
-  'user/check',
-  async () => await getUserApi()
-);
-
-export const fetchRefreshTocken = createAsyncThunk(
-  'user/refresh',
-  async () => await refreshToken()
-);
-
 export const {} = slice.actions;
-export const { getIsAuth, getUser, getError } = slice.selectors;
+export const { selectIsAuth, selectUser, selectError } = slice.selectors;
 export default slice.reducer;

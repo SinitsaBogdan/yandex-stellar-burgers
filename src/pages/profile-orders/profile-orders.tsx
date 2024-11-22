@@ -1,9 +1,12 @@
 import { ProfileOrdersUI } from '@ui-pages';
 import { TOrder } from '@utils-types';
 import { FC, useEffect } from 'react';
-import { addUserFeeds, getHistory } from '../../redux/slices/historySlice';
+import {
+  addUserFeeds,
+  getHistory
+} from '../../redux/slices/history/historySlice';
 import { useDispatch, useSelector } from '../../redux/store';
-import { fetchUserOrdersHistory } from '../../redux/slices/historySlice';
+import { fetchUserOrdersHistory } from '../../redux/slices/history/thunks';
 
 export const ProfileOrders: FC = () => {
   const dispatch = useDispatch();

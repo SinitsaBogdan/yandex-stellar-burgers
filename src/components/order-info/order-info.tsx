@@ -4,12 +4,12 @@ import { OrderInfoUI } from '../ui/order-info';
 import { TIngredient } from '@utils-types';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from '../../redux/store';
+import { getIngredients } from '../../redux/slices/ingredients/ingredientsSlice';
+import { fetchOrderId } from '../../redux/slices/orders/thunks';
 import {
-  fetchOrderId,
   getOrderData,
   setOrderData
-} from '../../redux/slices/orderSlice';
-import { getIngredients } from '../../redux/slices/ingredientsSlice';
+} from '../../redux/slices/orders/orderSlice';
 
 export const OrderInfo: FC = () => {
   const { number } = useParams();

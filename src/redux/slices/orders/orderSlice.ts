@@ -1,7 +1,7 @@
-import { getOrderByNumberApi, orderBurgerApi } from '@api';
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { TOrder } from '@utils-types';
 import { v4 as uuidv4 } from 'uuid';
+import { fetchCreateOrder, fetchOrderId } from './thunks';
 
 type TOrdersState = {
   isLoading: boolean;
@@ -9,7 +9,7 @@ type TOrdersState = {
   orderRequest: boolean;
 };
 
-const initialState: TOrdersState = {
+export const initialState: TOrdersState = {
   isLoading: false,
   orderData: null,
   orderRequest: false
@@ -61,16 +61,6 @@ const slice = createSlice({
       });
   }
 });
-
-export const fetchOrderId = createAsyncThunk(
-  'order/getId',
-  async (number: string) => await getOrderByNumberApi(Number(number))
-);
-
-export const fetchCreateOrder = createAsyncThunk(
-  'order/create',
-  async (ingredients: string[]) => await orderBurgerApi(ingredients)
-);
 
 export const { setOrderData, clearOrderData } = slice.actions;
 export const { getIsLoading, getOrderData, getOrderRequest } = slice.selectors;
